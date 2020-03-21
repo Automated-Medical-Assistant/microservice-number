@@ -44,4 +44,9 @@ class BusinessFacade implements BusinessFacadeInterface
     {
         return $this->findEntity->getAll();
     }
+
+    public function sendNumberListRequest(): NumberListAPIDataProvider
+    {
+        return $this->findEntity->getAll();
+    }
 }

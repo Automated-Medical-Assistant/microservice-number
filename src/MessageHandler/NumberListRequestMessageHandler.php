@@ -25,6 +25,6 @@ class NumberListRequestMessageHandler
      */
     public function __invoke(NumberChangeStateRequestAPIDataProvider $message): void
     {
-        $this->communicationFacade->receiveNumberChangeStateRequest($message);
+        return $this->communicationFacade->sendNumberListRequest();
     }
 }
