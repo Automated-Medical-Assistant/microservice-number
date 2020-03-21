@@ -12,7 +12,7 @@ use App\Business\BusinessFacadeInterface;
 class CommunicationFacade implements CommunicationFacadeInterface
 {
     /**
-     * @var \NumberService\Business\BusinessFacadeInterface
+     * @var \App\Business\BusinessFacadeInterface
      */
     private BusinessFacadeInterface $businessFacade;
 

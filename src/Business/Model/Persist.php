@@ -5,47 +5,40 @@ declare(strict_types=1);
 namespace App\Business\Model;
 
 
-use App\Entity\Numbers;
-use App\Repository\NumbersRepository;
-use DateTime;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Redis\RedisServiceInterface;
+use MessageInfo\NumberAPIDataProvider;
 use MessageInfo\NumberChangeStateRequestAPIDataProvider;
 use MessageInfo\NumberCreationRequestAPIDataProvider;
+use Xervice\DataProvider\Business\Model\DataProvider\DataProviderInterface;
 
 class Persist implements PersistInterface
 {
     /**
-     * @var \Doctrine\ORM\EntityManagerInterface
+     * @var \App\Business\Model\RedisServiceInterface
      */
-    private EntityManagerInterface $em;
+    private RedisServiceInterface $redisService;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(RedisServiceInterface $redisService)
     {
-        $this->em = $entityManager;
+        $this->redisService = $redisService;
     }
 
     public function persistCreation(NumberCreationRequestAPIDataProvider $dataProvider): void
     {
-        $number = new Numbers();
-        $number->setNumber($dataProvider->getNumber());
-        $number->setDoctorId($dataProvider->getDoctorId());
-        $number->setCreationDate(new DateTime($dataProvider->getCreationDate()));
+        $redisTransfer = new NumberAPIDataProvider();
+        $redisTransfer->setNumber($dataProvider->getNumber());
+        $redisTransfer->setDoctorId($dataProvider->getDoctorId());
+        $redisTransfer->setCreationDate($dataProvider->getCreationDate());
 
-        $this->save($number);
+        $this->redisService->set($dataProvider->getNumber(), json_encode($redisTransfer->toArray(), JSON_THROW_ON_ERROR, 512));
     }
 
-    public function persistChange(NumberChangeStateRequestAPIDataProvider $dataProvider, Numbers $number): void
+    public function persistChange(NumberChangeStateRequestAPIDataProvider $dataProvider, NumberAPIDataProvider $numberAPIData): void
     {
-        $number->setNumber($dataProvider->getNumber());
-        $number->setStatus($dataProvider->getStatus());
-        $number->setModifiedStateDate(new DateTime($dataProvider->getModifiedStateDate()));
+        $numberAPIData->setNumber($dataProvider->getNumber());
+        $numberAPIData->setModifiedStateDate($dataProvider->getModifiedStateDate());
+        $numberAPIData->setStatus($dataProvider->getStatus());
 
-        $this->save($number);
-    }
-
-    private function save(Numbers $numbers): void
-    {
-        $this->em->persist($numbers);
-        $this->em->flush();
+        $this->redisService->set($dataProvider->getNumber(), json_encode($numberAPIData->toArray(), JSON_THROW_ON_ERROR, 512));
     }
 }

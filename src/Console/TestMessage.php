@@ -41,6 +41,13 @@ class TestMessage extends Command
 
         $this->messageBus->dispatch($testDataProvider);
 
+        $testDataProvider = new NumberCreationRequestAPIDataProvider();
+        $testDataProvider->setNumber(time() . rand(1,100));
+        $testDataProvider->setDoctorId(1);
+        $testDataProvider->setCreationDate((new \DateTime())->format('Y-m-d H:i:s'));
+
+        $this->messageBus->dispatch($testDataProvider);
+
         return 0;
     }
 }

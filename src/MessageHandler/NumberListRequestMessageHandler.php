@@ -8,7 +8,7 @@ namespace App\MessageHandler;
 use MessageInfo\NumberChangeStateRequestAPIDataProvider;
 use App\Communication\CommunicationFacadeInterface;
 
-class NumberChangeStateRequestMessageHandler
+class NumberListRequestMessageHandler
 {
     private CommunicationFacadeInterface $communicationFacade;
 
