@@ -24,8 +24,11 @@ services:
         tags: [console.command]
     ###< Xervice\DataProvider ###
 
-    App\MessageHandler\MyMessageHandler:
+    App\MessageHandler\NumberChangeStateRequestMessageHandler:
         tags: [messenger.message_handler]
+
+    App\MessageHandler\NumberCreationRequestMessageHandler:
+      tags: [messenger.message_handler]
 
     App\Redis\RedisBusinessFactory:
         arguments:
