@@ -27,7 +27,7 @@ class TestMessage extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setDescription('Test message');
     }

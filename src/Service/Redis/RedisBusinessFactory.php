@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Redis;
+namespace App\Service\Redis;
 
 use Predis\Client;
 

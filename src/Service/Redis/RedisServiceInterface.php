@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 
-namespace App\Redis;
+namespace App\Service\Redis;
 
 
 interface RedisServiceInterface

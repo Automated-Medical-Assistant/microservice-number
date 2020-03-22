@@ -14,5 +14,5 @@ interface CommunicationFacadeInterface
 
     public function receiveNumberCreationRequest(NumberCreationRequestAPIDataProvider $dataProvider): void;
 
-    public function sendNumberListRequest();
+    public function sendNumberListRequest(): void;
 }

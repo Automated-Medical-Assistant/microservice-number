@@ -1,10 +1,20 @@
 framework:
     messenger:
         transports:
-            test_event.test_event: "%env(TEST_EVENT_TEST_EVENT)%"
-            test_event.test_event2: "%env(TEST_EVENT_TEST_EVENT_2)%"
+            NumberCreationRequestAPI.NumberService: "%env(NumberCreationRequestAPI_NumberService)%"
+            NumberChangeStateRequestAPI.NumberService: "%env(NumberChangeStateRequestAPI_NumberService)%"
+            NumberListAPI.ServiceStatus: "%env(NumberListAPI_ServiceStatus)%"
+            NumberListAPI.Labor: "%env(NumberListAPI_Labor)%"
+            NumberListAPI.TestCentrum: "%env(NumberListAPI_TestCentrum)%"
 
         routing:
-            'MessageInfo\NumberCreationRequestAPIDataProvider' :
-                - test_event.test_event
-                - test_event.test_event2
+            'MessageInfo\NumberCreationRequestAPIDataProvider':
+                - NumberCreationRequestAPI.NumberService
+
+            'MessageInfo\NumberChangeStateRequestAPIDataProvider':
+                - NumberChangeStateRequestAPI.NumberService
+
+            'MessageInfo\NumberListAPIDataProvider':
+                - NumberListAPI.ServiceStatus
+                - NumberListAPI.Labor
+                - NumberListAPI.TestCentrum

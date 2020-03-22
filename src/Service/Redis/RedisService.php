@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Redis;
+namespace App\Service\Redis;
 
 use App\Redis\RedisBusinessFactoryInterface;
 use Predis\Client;

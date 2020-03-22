@@ -3,12 +3,12 @@
 
 declare(strict_types=1);
 
-namespace App\MessageHandler;
+namespace App\Communication\Plugin\MessageHandler;
 
-use MessageInfo\NumberChangeStateRequestAPIDataProvider;
+use MessageInfo\NumberCreationRequestAPIDataProvider;
 use App\Communication\CommunicationFacadeInterface;
 
-class NumberChangeStateRequestMessageHandler
+class NumberCreationRequestMessageHandler
 {
     private CommunicationFacadeInterface $communicationFacade;
 
@@ -19,12 +19,8 @@ class NumberChangeStateRequestMessageHandler
     {
         $this->communicationFacade = $communicationFacade;
     }
-
-    /**
-     * @param \MessageInfo\NumberChangeStateRequestAPIDataProvider $message
-     */
-    public function __invoke(NumberChangeStateRequestAPIDataProvider $message): void
+    public function __invoke(NumberCreationRequestAPIDataProvider $message): void
     {
-        $this->communicationFacade->receiveNumberChangeStateRequest($message);
+        $this->communicationFacade->receiveNumberCreationRequest($message);
     }
 }

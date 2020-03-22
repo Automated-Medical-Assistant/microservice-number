@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Communication;
 
 
+use App\Communication\Plugin\NumberListDispatcherInterface;
 use MessageInfo\NumberChangeStateRequestAPIDataProvider;
 use MessageInfo\NumberCreationRequestAPIDataProvider;
 use App\Business\BusinessFacadeInterface;
-use MessageInfo\NumberListAPIDataProvider;
 
 class CommunicationFacade implements CommunicationFacadeInterface
 {
@@ -16,10 +16,15 @@ class CommunicationFacade implements CommunicationFacadeInterface
      * @var \App\Business\BusinessFacadeInterface
      */
     private BusinessFacadeInterface $businessFacade;
+    /**
+     * @var \App\Communication\Plugin\NumberListDispatcherInterface
+     */
+    private NumberListDispatcherInterface $dispatcher;
 
-    public function __construct(BusinessFacadeInterface $businessFacade)
+    public function __construct(BusinessFacadeInterface $businessFacade, NumberListDispatcherInterface $dispatcher)
     {
         $this->businessFacade = $businessFacade;
+        $this->dispatcher = $dispatcher;
     }
 
     public function receiveNumberChangeStateRequest(NumberChangeStateRequestAPIDataProvider $dataProvider): void
@@ -32,8 +37,9 @@ class CommunicationFacade implements CommunicationFacadeInterface
         $this->businessFacade->receiveNumberCreationRequest($dataProvider);
     }
 
-    public function sendNumberListRequest(): NumberListAPIDataProvider
+    public function sendNumberListRequest(): void
     {
-        return $this->businessFacade->sendNumberListRequest();
+        $dataProvider = $this->businessFacade->sendNumberListRequest();
+        $this->dispatcher->dispatch($dataProvider);
     }
 }
