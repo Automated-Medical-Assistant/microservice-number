@@ -20,9 +20,6 @@ class NumberChangeStateRequestMessageHandler
         $this->communicationFacade = $communicationFacade;
     }
 
-    /**
-     * @param \MessageInfo\NumberChangeStateRequestAPIDataProvider $message
-     */
     public function __invoke(NumberChangeStateRequestAPIDataProvider $message): void
     {
         $this->communicationFacade->receiveNumberChangeStateRequest($message);

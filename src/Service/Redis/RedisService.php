@@ -2,7 +2,7 @@
 
 namespace App\Service\Redis;
 
-use App\Redis\RedisBusinessFactoryInterface;
+use App\Service\Redis\RedisBusinessFactoryInterface;
 use Predis\Client;
 
 class RedisService implements RedisServiceInterface

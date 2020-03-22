@@ -5,17 +5,13 @@ declare(strict_types=1);
 namespace App\Business\Model;
 
 
-use App\Redis\RedisServiceInterface;
+use App\Service\Redis\RedisServiceInterface;
 use MessageInfo\NumberAPIDataProvider;
 use MessageInfo\NumberChangeStateRequestAPIDataProvider;
 use MessageInfo\NumberCreationRequestAPIDataProvider;
-use Xervice\DataProvider\Business\Model\DataProvider\DataProviderInterface;
 
 class Persist implements PersistInterface
 {
-    /**
-     * @var \App\Business\Model\RedisServiceInterface
-     */
     private RedisServiceInterface $redisService;
 
     public function __construct(RedisServiceInterface $redisService)

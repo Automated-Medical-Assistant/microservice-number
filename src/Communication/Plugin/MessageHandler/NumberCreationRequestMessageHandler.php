@@ -19,6 +19,7 @@ class NumberCreationRequestMessageHandler
     {
         $this->communicationFacade = $communicationFacade;
     }
+
     public function __invoke(NumberCreationRequestAPIDataProvider $message): void
     {
         $this->communicationFacade->receiveNumberCreationRequest($message);
